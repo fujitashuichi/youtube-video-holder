@@ -40,6 +40,12 @@ function App() {
 
 	return (
 		<div className="App">
+			<div className="shutter">
+				<h1 className='site-title'>
+					YouTube Video Holder
+				</h1>
+				<div className='shutter-cover'></div>
+			</div>
 			<header id='header'>
 				<form onSubmit={handleSubmit}>
 					<label htmlFor="url">YouTube動画のURLを入力</label>

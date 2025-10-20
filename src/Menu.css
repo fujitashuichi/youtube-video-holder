@@ -1,8 +1,81 @@
+/* nav */
+
 nav {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    width: 0.5vw;
+    position: fixed;
+    width: 0;
     height: 100vh;
-    background: silver;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #c0c0c0cc;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    transition: all 0.3s;
+}
+
+nav.opened {
+    width: 50vw;
+}
+@media screen and (max-width: calc(560px * 2)) {
+    nav.opened {
+        width: 560px;
+    }
+}
+@media screen and (min-width: 560px) {
+    nav.opened {
+        max-width: 560px;
+    }
+}
+
+/* nav > * */
+
+.menu-title {
+    padding: 10px 0;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+
+/* toggle-btn */
+
+.toggle-btn {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    z-index: 11;
+}
+
+.toggle-btn span {
+    display: block;
+    width: 100%;
+    height: 0;
+    border: 2px outset goldenrod;
+    transition: all 0.3s;
+}
+
+.toggle-btn span:nth-of-type(1) {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-6px);
+}
+
+.toggle-btn.opened span:nth-of-type(1) {
+    position: absolute;
+    top: 50%;
+    transform: translateY(0) rotateZ(45deg);
+}
+
+.toggle-btn span:nth-of-type(2) {
+    position: absolute;
+    top: 50%;
+    transform: translateY(3px);
+}
+
+.toggle-btn.opened span:nth-of-type(2) {
+    position: absolute;
+    top: 50%;
+    transform: translateY(0) rotateZ(-45deg);
 }

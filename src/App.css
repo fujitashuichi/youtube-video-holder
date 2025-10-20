@@ -1,7 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+nav {
+    list-style: none;
 }
 
 .App {
@@ -10,21 +16,101 @@
 }
 
 
+/* opening animation */
+
+.shutter {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    animation: by-shutter 5s forwards;
+}
+
+.shutter-cover {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #000;
+    animation: by-shutter-cover 4s forwards;
+    z-index: 9999;
+}
+
+.shutter .site-title {
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    font-family: "Playfair Display", serif;
+    font-size: 3rem;
+    font-weight: 300;
+    font-style: italic;
+    text-shadow:
+        gold 10px 5px 20px,
+        #502200 -2px -1px 0px
+    ;
+    color: gold;
+    animation: by-title 5s forwards;
+    z-index: 99999;
+}
+
+@keyframes by-shutter {
+    100% {
+        display: none;
+    }
+}
+
+@keyframes by-shutter-cover {
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        display: none;
+        opacity: 0;
+        z-index: -9999;
+    }
+}
+
+@keyframes by-title {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        z-index: -9999;
+    }
+}
+
+
 /* header */
+
+#header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding: 25px 50px;
+    border-bottom: solid 2px gold;
+    background: #502200;
+    font-family: "Noto Sans JP", sans-serif;
+}
 
 form {
     display: flex;
     width: 100%;
-    height: 75px;
     align-items: center;
     justify-content: center;
-    border-bottom: solid 2px gold;
-    background: #502200;
 }
 
 form label {
     margin-right: 10px;
     color: goldenrod;
+    text-align: center;
 }
 
 form input {
@@ -44,11 +130,16 @@ form button {
     border: outset 2px silver;
     background: #000;
     color: #fff;
+    white-space: nowrap;
 }
 
 form button:hover {
     background: #fff;
     color: #000;
+}
+
+#menu {
+    font-family: "Playfair Display", serif;
 }
 
 
@@ -68,5 +159,23 @@ form button:hover {
 }
 
 .video-wrapper iframe {
-    border: inset 5px #c09933;
+    border-top: solid 6px #c0993377;
+    border-right: solid 6px #c09933cc;
+    border-bottom: solid 6px #c09933ff;
+    border-left: solid 6px #c09933aa;
+}
+
+
+@media screen and (max-width: 870px) {
+    form {
+        flex-wrap: wrap;
+    }
+
+    form > * {
+        margin: 5px 0;
+    }
+
+    form label {
+        width: 100%;
+    }
 }
