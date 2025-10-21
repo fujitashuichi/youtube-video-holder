@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import "./Menu.css"
 import { VideoProperty } from './HomePage';
 import { Link } from 'react-router-dom';
@@ -20,10 +20,45 @@ function Menu() {
 
     /* ビデオサイズ関連 */
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    const { videoWidth, setVideoWidth } = useContext(VideoProperty);
+
+    const [displayValue, setDisplayValue] = useState("560");
+
+    const handleChangeWidth = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        const newWidth: string = e.target.value + "px";
+        setVideoWidth(newWidth);
+        setDisplayValue(newWidth);
+    }
+
+    // ビデオサイズを既定の大きさにする関数
+    const resetVideoWidth = useCallback(() => {
+        if (windowWidth >= 610) {
+            setVideoWidth("560px");
+        } else {
+            const newWidth = String(windowWidth -60) + "px";
+            setVideoWidth(newWidth);
+        }
+        setDisplayValue(videoWidth);
+    }, [windowWidth, videoWidth, setVideoWidth, setDisplayValue]);
+
+    // ロード時の処理
     useEffect(() => {
-        // リサイズイベントが発生したときの処理
+        const handleLoading = () => {
+            resetVideoWidth();
+        };
+
+        window.addEventListener("load", handleLoading);
+    }, [resetVideoWidth]);
+
+    // リサイズイベントが発生したときの処理
+    useEffect(() => {
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
+            if (windowWidth < 610) {
+                const newWidth = String(windowWidth - 60) + "px";
+                setVideoWidth(newWidth);
+            }
         };
 
         window.addEventListener('resize', handleResize);
@@ -32,37 +67,7 @@ function Menu() {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
-
-    const { videoWidth, setVideoWidth } = useContext(VideoProperty);
-
-    const [displayValue, setDisplayValue] = useState("560");
-
-    useEffect(() => {
-        const handleResize = () => {
-            if (windowWidth < 610) {
-                const newWidth = String(windowWidth - 60) + "px";
-                setVideoWidth(newWidth);
-            }
-        }
-        window.addEventListener("resize", handleResize);
-    }, []);
-
-    const handleChangeWidth = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        const newWidth: string = e.target.value + "px";
-        setVideoWidth(newWidth);
-        setDisplayValue(newWidth);
-    }
-
-    const resetVideoSize = () => {
-        if (windowWidth >= 610) {
-            setVideoWidth("560px");
-        } else {
-            const newWidth = String(windowWidth -60) + "px";
-            setVideoWidth(newWidth);
-        }
-        setDisplayValue(videoWidth);
-    }
+    }, [setVideoWidth, windowWidth]);
 
 
     return (
@@ -74,7 +79,7 @@ function Menu() {
                         <h3 className='li-title'>Video Size</h3>
                         <div id='range-display'>size: {displayValue}</div>
                         <input type="range" id="iframeWidth" min="0" max={windowWidth - 50} step="1" value={videoWidth.replace("px", "")} onChange={handleChangeWidth} />
-                        <div className='reset-btn' onClick={resetVideoSize}>reset</div>
+                        <div className='reset-btn' onClick={resetVideoWidth}>reset</div>
                     </li>
                     <li>
                         <h3 className='li-title'>

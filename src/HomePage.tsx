@@ -48,7 +48,7 @@ function HomePage() {
         <VideoProperty.Provider value={value}>
             <div className="shutter">
 				<h1 className='site-title'>
-					YouTube Video Holder
+					<span>YouTube </span><span>Video </span><span>Holder</span>
 				</h1>
 				<div className='shutter-cover'></div>
 			</div>
