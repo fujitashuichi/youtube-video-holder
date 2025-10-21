@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import "./Menu.css"
 import { VideoProperty } from './HomePage';
+import { Link } from 'react-router-dom';
 
 
 function Menu() {
@@ -18,8 +19,29 @@ function Menu() {
 
 
     /* ビデオサイズ関連 */
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    useEffect(() => {
+        // リサイズイベントが発生したときの処理
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // クリーンアップ関数: コンポーネントがアンマウントされるときにリスナーを削除
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     const { videoWidth, setVideoWidth } = useContext(VideoProperty);
+
     const [displayValue, setDisplayValue] = useState("560");
+
+    if (windowWidth < 610) {
+        const newWidth = String(windowWidth - 60) + "px";
+        setVideoWidth(newWidth);
+    }
 
     const handleChangeWidth = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const newWidth: string = e.target.value;
@@ -28,7 +50,11 @@ function Menu() {
     }
 
     const resetVideoSize = () => {
-        setVideoWidth("560px");
+        if (windowWidth >= 610) {
+            setVideoWidth("560px");
+        } else {
+            const newWidth = String(windowWidth -60) + "px";
+        }
     }
 
 
@@ -40,8 +66,13 @@ function Menu() {
                     <li>
                         <h3 className='li-title'>Video Size</h3>
                         <div id='range-display'>size: {displayValue}</div>
-                        <input type="range" id="iframeWidth" min="0" max="1200" step="1" value={videoWidth.replace("px", "")} onChange={handleChangeWidth} />
+                        <input type="range" id="iframeWidth" min="0" max={windowWidth - 50} step="1" value={videoWidth.replace("px", "")} onChange={handleChangeWidth} />
                         <div className='reset-btn' onClick={resetVideoSize}>reset</div>
+                    </li>
+                    <li>
+                        <h3 className='li-title'>
+                            <Link to="/how-to-use" className='link'>How to Use</Link>
+                        </h3>
                     </li>
                 </ul>
             </nav>

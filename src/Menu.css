@@ -34,12 +34,15 @@ nav.opened {
     font-weight: 200;
     font-style: italic;
     letter-spacing: 0.1rem;
+    color: #c09933;
+    background: #502200;
 }
 
 nav ul li {
     text-align: center;
     font-size: 1.5rem;
     font-style: italic;
+    margin-bottom: 30px;
 }
 
 nav .li-title {

@@ -10,6 +10,11 @@ ul {
     list-style: none;
 }
 
+a, .link {
+    text-decoration: none;
+    color: #000;
+}
+
 input[type=range] {
     height: 12px;
     -webkit-appearance: none;
@@ -183,14 +188,12 @@ form button:hover {
 .video-list {
     display: flex;
     flex-wrap: wrap;
-    width: 90%;
     margin: 0 auto;
     padding-top: 25px;
     justify-content: center;
 }
 
 .video-list .video-wrapper {
-
     padding: 10px 15px;
 }
 
@@ -202,6 +205,8 @@ form button:hover {
     border-left: solid 6px #c09933aa;
 }
 
+
+/* レスポンス */
 
 @media screen and (max-width: 870px) {
     form {
