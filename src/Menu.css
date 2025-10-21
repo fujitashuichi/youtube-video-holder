@@ -7,32 +7,70 @@ nav {
     top: 0;
     right: 0;
     bottom: 0;
-    background: #c0c0c0cc;
+    background: #000;
     backdrop-filter: blur(10px);
     z-index: 10;
     transition: all 0.3s;
 }
 
 nav.opened {
-    width: 50vw;
+    width: 560px;
+    background: #c0c0c0cc;
 }
-@media screen and (max-width: calc(560px * 2)) {
+
+@media screen and (max-width: 560px) {
     nav.opened {
-        width: 560px;
-    }
-}
-@media screen and (min-width: 560px) {
-    nav.opened {
-        max-width: 560px;
+        width: 100%;
     }
 }
 
 /* nav > * */
 
 .menu-title {
+    margin-bottom: 25px;
     padding: 10px 0;
     text-align: center;
+    font-size: 2rem;
+    font-weight: 200;
+    font-style: italic;
+    letter-spacing: 0.1rem;
+}
+
+nav ul li {
+    text-align: center;
+    font-size: 1.5rem;
+    font-style: italic;
+}
+
+nav .li-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.05rem;
+}
+
+#range-display {
+    display: inline-block;
+    padding: 2px 4px;
     font-size: 1.2rem;
+}
+
+.reset-btn {
+    display: inline-block;
+    width: fit-content;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #f9f6ec;
+    background: #000;
+    padding: 2px 4px;
+    margin: 0 5px;
+    border-radius: 2px;
+    border: 1px solid #000;
+    letter-spacing: 0.05rem;
+}
+
+.reset-btn:hover {
+    color: #000;
+    background: #f9f6ec;
 }
 
 

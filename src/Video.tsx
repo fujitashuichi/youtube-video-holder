@@ -1,5 +1,6 @@
-import React from 'react'
+import { useContext } from 'react';
 import { VideoId } from './config/types';
+import { VideoProperty } from './HomePage';
 
 type Props = {
     videoId: VideoId;
@@ -7,15 +8,17 @@ type Props = {
 
 
 function Video({ videoId }: Props) {
-    console.log(typeof videoId);
+    const { videoWidth } = useContext(VideoProperty);
+
     return (
         <div className='video-wrapper'>
-            <iframe width="560px" height="315px"
+            <iframe
                 src={`https://www.youtube.com/embed/${videoId}`}
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
+                style={{ width: videoWidth }}
             >
             </iframe>
         </div>
