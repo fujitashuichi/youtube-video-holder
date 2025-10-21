@@ -38,14 +38,19 @@ function Menu() {
 
     const [displayValue, setDisplayValue] = useState("560");
 
-    if (windowWidth < 610) {
-        const newWidth = String(windowWidth - 60) + "px";
-        setVideoWidth(newWidth);
-    }
+    useEffect(() => {
+        const handleResize = () => {
+            if (windowWidth < 610) {
+                const newWidth = String(windowWidth - 60) + "px";
+                setVideoWidth(newWidth);
+            }
+        }
+        window.addEventListener("resize", handleResize);
+    }, []);
 
     const handleChangeWidth = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        const newWidth: string = e.target.value;
-        setVideoWidth(newWidth + "px");
+        const newWidth: string = e.target.value + "px";
+        setVideoWidth(newWidth);
         setDisplayValue(newWidth);
     }
 
@@ -54,7 +59,9 @@ function Menu() {
             setVideoWidth("560px");
         } else {
             const newWidth = String(windowWidth -60) + "px";
+            setVideoWidth(newWidth);
         }
+        setDisplayValue(videoWidth);
     }
 
 
