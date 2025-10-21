@@ -55,6 +55,15 @@ input[type=range]::-moz-range-thumb {
     min-height: 100vh;
 }
 
+.page-title {
+    font-size: 2rem;
+    font-family: "Playfair Display", serif;
+    font-weight: 200;
+    font-style: italic;
+    text-align: center;
+    color: #c09933;
+}
+
 
 /* opening animation */
 
@@ -138,6 +147,7 @@ input[type=range]::-moz-range-thumb {
     border-bottom: solid 2px gold;
     background: #502200;
     font-family: "Noto Sans JP", sans-serif;
+    z-index: 10;
 }
 
 form {
