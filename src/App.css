@@ -217,6 +217,32 @@ form button:hover {
 }
 
 
+/* ページネーション */
+
+.pagination-wrapper {
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.pagination {
+    display: flex;
+    gap: 25px 6px;
+}
+
+.page-link,
+.page-item {
+    list-style: none;
+    color: #c09933!important;
+    text-decoration: none!important;
+    cursor: pointer;
+}
+
+.pagination .active {
+    text-decoration: underline!important;
+}
+
+
 /* レスポンス */
 
 @media screen and (max-width: 870px) {

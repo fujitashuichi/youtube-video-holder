@@ -2,17 +2,18 @@ import type { Element, VideoId } from './config/types'
 import Video from './Video';
 
 type Props = {
-    videoCount: number;
+    offsets: number[];
 }
 
 
-function VideoList({ videoCount }: Props) {
+function VideoList({ offsets }: Props) {
     const savedVideoIds: VideoId[] = JSON.parse(localStorage.getItem("youtubeVideos") || "[]");
 
-    const endOffset = Math.min(videoCount, savedVideoIds.length);
+    const startOffset = offsets[0];
+    const endOffset = Math.min(offsets[1], savedVideoIds.length);
 
     let videos: Element[] = [];
-    for (let i=0; i < endOffset; i++) {
+    for (let i=startOffset; i < endOffset; i++) {
         const video: Element = <Video key={i} videoId={savedVideoIds[i]} />
         videos.push(video);
     }

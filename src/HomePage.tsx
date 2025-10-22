@@ -1,6 +1,7 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import Menu from './Menu'
 import VideoList from './VideoList'
+import ReactPaginate from 'react-paginate';
 
 
 export const VideoProperty = createContext({} as any);
@@ -45,6 +46,35 @@ function HomePage() {
 			savedVideos.push(videoId);
 			localStorage.setItem("youtubeVideos", JSON.stringify(savedVideos));
 		}
+
+		setStorageLength(savedVideos.length);
+	}
+
+
+	//---------------------------------------------- ページネーション関連 ------------------------------------------------- //
+
+	const [pageCount, setPageCount] = useState<number>();
+	const [storageLength, setStorageLength] = useState<number>(0);
+
+	useEffect(() => {
+		setStorageLength(JSON.parse(localStorage.getItem("youtubeVideos") || "[]").length);
+	}, []);
+
+	// itemCountとstorageLengthに応じてpageCountの値を更新する
+	useEffect(() => {
+		const newPageCount = Math.ceil(storageLength / itemCount);
+		setPageCount(newPageCount);
+	}, [itemCount, storageLength]);
+
+    const [itemsOffset, setItemsOffset] = useState(0);
+
+    const endOffset = itemsOffset + itemCount;
+
+    const currentItemsOffsets = [itemsOffset, endOffset];
+
+	const handlePageClick = (e: { selected: number }) => {
+		const newOffset = (e.selected * itemCount) % storageLength;
+        setItemsOffset(newOffset);
 	}
 
 
@@ -66,7 +96,29 @@ function HomePage() {
 				<Menu />
 			</header>
 			<main id='main'>
-				<VideoList videoCount={itemCount} />
+				<VideoList offsets={currentItemsOffsets} />
+				<div className="pagination-wrapper">
+					<ReactPaginate
+						nextLabel="next >"
+						onPageChange={handlePageClick}
+						pageRangeDisplayed={3}
+						marginPagesDisplayed={2}
+						pageCount={pageCount || 1}
+						previousLabel="< previous"
+						pageClassName="page-item"
+						pageLinkClassName="page-link"
+						previousClassName="page-item"
+						previousLinkClassName="page-link"
+						nextClassName="page-item"
+						nextLinkClassName="page-link"
+						breakLabel="..."
+						breakClassName="page-item"
+						breakLinkClassName="page-link"
+						containerClassName="pagination"
+						activeClassName="active"
+						activeLinkClassName="active"
+					/>
+				</div>
 			</main>
 		</ItemsPerPage.Provider>
         </VideoProperty.Provider>
