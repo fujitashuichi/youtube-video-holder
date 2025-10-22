@@ -23,7 +23,7 @@ function Menu() {
 
     const { videoWidth, setVideoWidth } = useContext(VideoProperty);
 
-    const [displayValue, setDisplayValue] = useState("560");
+    const [displayValue, setDisplayValue] = useState("");
     const [maxWidth, setMAxWidth] = useState(windowWidth - 60);
 
     const handleChangeWidth = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -47,7 +47,6 @@ function Menu() {
     useEffect(() => {
         setWindowWidth(window.innerWidth);
         const initializeValues = () => {
-            setMAxWidth(window.innerWidth - 60);
             resetVideoWidth();
         };
 

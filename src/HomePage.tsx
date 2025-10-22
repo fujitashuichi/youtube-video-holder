@@ -7,7 +7,7 @@ export const VideoProperty = createContext({} as any);
 
 
 function HomePage() {
-	const [videoWidth, setVideoWidth] = useState("560px");
+	const [videoWidth, setVideoWidth] = useState("");
 	const value = { videoWidth, setVideoWidth };
 
 
