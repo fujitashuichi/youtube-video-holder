@@ -4,11 +4,15 @@ import VideoList from './VideoList'
 
 
 export const VideoProperty = createContext({} as any);
+export const ItemsPerPage = createContext({} as any);
 
 
 function HomePage() {
 	const [videoWidth, setVideoWidth] = useState<number>();
 	const value = { videoWidth, setVideoWidth };
+
+	const [itemCount, setItemCount] = useState<number>(10);
+	const value2 = { itemCount, setItemCount };
 
 
     const [inputValue, setInputValue] = useState("");
@@ -46,6 +50,7 @@ function HomePage() {
 
     return (
         <VideoProperty.Provider value={value}>
+		<ItemsPerPage.Provider value={value2}>
             <div className="shutter">
 				<h1 className='site-title'>
 					<span>YouTube </span><span>Video </span><span>Holder</span>
@@ -61,8 +66,9 @@ function HomePage() {
 				<Menu />
 			</header>
 			<main id='main'>
-				<VideoList videoCount={5} />
+				<VideoList videoCount={itemCount} />
 			</main>
+		</ItemsPerPage.Provider>
         </VideoProperty.Provider>
     )
 }

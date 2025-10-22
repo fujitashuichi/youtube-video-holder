@@ -1,11 +1,11 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import "./Menu.css"
-import { VideoProperty } from './HomePage';
+import { ItemsPerPage, VideoProperty } from './HomePage';
 import { Link } from 'react-router-dom';
 
 
 function Menu() {
-    /* トグルバトン関連 */
+    //-------------------------------------- トグルバトン関連 ---------------------------------------------------------//
     const [className, setClassName] = useState("");
 
     const handleClickBtn = () => {
@@ -18,7 +18,7 @@ function Menu() {
     }
 
 
-    /* ビデオサイズ関連 */
+    //--------------------------------------- ビデオサイズ関連 --------------------------------------------------------//
     const { videoWidth, setVideoWidth } = useContext(VideoProperty);
 
     const [displayValue, setDisplayValue] = useState<string>("");
@@ -84,11 +84,26 @@ function Menu() {
     }, [videoWidth]);
 
 
+    // -------------------------------------- 表示数関連 -------------------------------------------------------------- //
+    const { itemCount, setItemCount } = useContext(ItemsPerPage);
+
+    interface ChangeCountEvent extends React.ChangeEvent<HTMLInputElement> {}
+
+    const handleChangeCount = (e: ChangeCountEvent): void => {
+        setItemCount(Number(e.target.value));
+    }
+
+
     return (
         <div id='menu'>
             <nav className={className}>
                 <h2 className='menu-title'>Menu</h2>
                 <ul>
+                    <li>
+                        <h3 className='li-title'>
+                            <Link to="/how-to-use" className='link'>How to Use</Link>
+                        </h3>
+                    </li>
                     <li>
                         <h3 className='li-title'>Video Size</h3>
                         <div id='range-display'>size: {displayValue}</div>
@@ -96,9 +111,8 @@ function Menu() {
                         <div className='reset-btn' onClick={resetVideoWidth}>reset</div>
                     </li>
                     <li>
-                        <h3 className='li-title'>
-                            <Link to="/how-to-use" className='link'>How to Use</Link>
-                        </h3>
+                        <h3 className="li-title">Items / Page</h3>
+                        <input type='number' id='items-per-page' min="4" max="30" value={itemCount} onChange={handleChangeCount}></input>
                     </li>
                 </ul>
             </nav>
